@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="remeshing_project"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="msvc8"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 all"/>
+					<CompileFile command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Remesher">
+				<Option output="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/Remesher.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/tinyply"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/libigl/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glfw/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/eigen-git-mirror"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glew_2_1_0/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/nanoflann"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/misc"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/spectra"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 Remesher"/>
+					<CompileFile command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Remesher/fast">
+				<Option output="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/Remesher.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="msvc8"/>
+				<Compiler>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/tinyply"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/libigl/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glfw/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/eigen-git-mirror"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glew_2_1_0/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/nanoflann"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/misc"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/spectra"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\ATLMFC\include"/>
+					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\ucrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\shared"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\um"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\winrt"/>
+					<Add directory="C:\Program Files (x86)\Windows Kits\10\include\10.0.17134.0\cppwinrt"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 Remesher/fast"/>
+					<CompileFile command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 edit_cache"/>
+					<CompileFile command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+					<DistClean command="nmake /NOLOGO /f S:\Benfclark\Documents\GitHub\remeshing_project\cmake-build-debug\Makefile VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge/trimesh.cpp">
+			<Option target="Remesher"/>
+		</Unit>
+		<Unit filename="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge/trimesh.h">
+			<Option target="Remesher"/>
+		</Unit>
+		<Unit filename="S:/Benfclark/Documents/GitHub/remeshing_project/main.cpp">
+			<Option target="Remesher"/>
+		</Unit>
+		<Unit filename="S:/Benfclark/Documents/GitHub/remeshing_project/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

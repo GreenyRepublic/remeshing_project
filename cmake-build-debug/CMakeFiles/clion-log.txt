@@ -1,0 +1,4 @@
+"C:\Program Files\JetBrains\CLion 2017.3.4\bin\cmake\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - NMake Makefiles" S:\Benfclark\Documents\GitHub\remeshing_project
+-- Configuring done
+-- Generating done
+-- Build files have been written to: S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug
