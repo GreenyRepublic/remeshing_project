@@ -5,7 +5,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge/trimesh.cpp" "S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/Remesher.dir/external/halfedge/trimesh.cpp.obj"
-  "S:/Benfclark/Documents/GitHub/remeshing_project/main.cpp" "S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/Remesher.dir/main.cpp.obj"
+  "S:/Benfclark/Documents/GitHub/remeshing_project/src/main.cpp" "S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/Remesher.dir/src/main.cpp.obj"
+  "S:/Benfclark/Documents/GitHub/remeshing_project/src/meshMetrics.cpp" "S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/Remesher.dir/src/meshMetrics.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 
@@ -20,6 +21,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../external/misc"
   "../external/spectra"
   "../external/halfedge"
+  "../src"
   )
 
 # Targets to which this target links.

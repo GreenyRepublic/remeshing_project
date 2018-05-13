@@ -1,6 +1,7 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/Remesher.dir/main.cpp.obj"
+  "CMakeFiles/Remesher.dir/src/main.cpp.obj"
   "CMakeFiles/Remesher.dir/external/halfedge/trimesh.cpp.obj"
+  "CMakeFiles/Remesher.dir/src/meshMetrics.cpp.obj"
   "Remesher.pdb"
   "Remesher.exe"
   "Remesher.exe.manifest"

@@ -2630,7 +2630,15 @@ map
 
 S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge/trimesh_types.h
 
-S:/Benfclark/Documents/GitHub/remeshing_project/main.cpp
+S:/Benfclark/Documents/GitHub/remeshing_project/src/main.cpp
+meshMetrics.h
+S:/Benfclark/Documents/GitHub/remeshing_project/src/meshMetrics.h
+
+S:/Benfclark/Documents/GitHub/remeshing_project/src/meshMetrics.cpp
+meshMetrics.h
+S:/Benfclark/Documents/GitHub/remeshing_project/src/meshMetrics.h
+
+S:/Benfclark/Documents/GitHub/remeshing_project/src/meshMetrics.h
 igl/viewer/Viewer.h
 -
 igl/jet.h
@@ -2644,5 +2652,9 @@ thread
 stdio.h
 -
 algorithm
+-
+memory
+-
+numeric
 -
 

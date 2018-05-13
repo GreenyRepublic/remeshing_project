@@ -23,9 +23,10 @@ set(HEADER_DIRS external/tinyply
         external/nanoflann/
         external/misc/
         external/spectra/
-        external/halfedge/)
+        external/halfedge/
+         src/)
 
-add_executable(Remesher main.cpp external/halfedge/trimesh.cpp)
+add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h)
 target_include_directories(Remesher PRIVATE ${HEADER_DIRS})
 
 

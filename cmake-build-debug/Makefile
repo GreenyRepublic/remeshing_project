@@ -151,32 +151,59 @@ external\halfedge\trimesh.cpp.s:
 	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\external\halfedge\trimesh.cpp.s
 .PHONY : external\halfedge\trimesh.cpp.s
 
-main.obj: main.cpp.obj
+src\main.obj: src\main.cpp.obj
 
-.PHONY : main.obj
+.PHONY : src\main.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\main.cpp.obj
-.PHONY : main.cpp.obj
+src\main.cpp.obj:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\main.cpp.obj
+.PHONY : src\main.cpp.obj
 
-main.i: main.cpp.i
+src\main.i: src\main.cpp.i
 
-.PHONY : main.i
+.PHONY : src\main.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\main.cpp.i
-.PHONY : main.cpp.i
+src\main.cpp.i:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\main.cpp.i
+.PHONY : src\main.cpp.i
 
-main.s: main.cpp.s
+src\main.s: src\main.cpp.s
 
-.PHONY : main.s
+.PHONY : src\main.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\main.cpp.s
-.PHONY : main.cpp.s
+src\main.cpp.s:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\main.cpp.s
+.PHONY : src\main.cpp.s
+
+src\meshMetrics.obj: src\meshMetrics.cpp.obj
+
+.PHONY : src\meshMetrics.obj
+
+# target to build an object file
+src\meshMetrics.cpp.obj:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\meshMetrics.cpp.obj
+.PHONY : src\meshMetrics.cpp.obj
+
+src\meshMetrics.i: src\meshMetrics.cpp.i
+
+.PHONY : src\meshMetrics.i
+
+# target to preprocess a source file
+src\meshMetrics.cpp.i:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\meshMetrics.cpp.i
+.PHONY : src\meshMetrics.cpp.i
+
+src\meshMetrics.s: src\meshMetrics.cpp.s
+
+.PHONY : src\meshMetrics.s
+
+# target to generate assembly for a file
+src\meshMetrics.cpp.s:
+	$(MAKE) -f CMakeFiles\Remesher.dir\build.make /nologo -$(MAKEFLAGS) CMakeFiles\Remesher.dir\src\meshMetrics.cpp.s
+.PHONY : src\meshMetrics.cpp.s
 
 # Help Target
 help:
@@ -190,9 +217,12 @@ help:
 	@echo ... external/halfedge/trimesh.obj
 	@echo ... external/halfedge/trimesh.i
 	@echo ... external/halfedge/trimesh.s
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... src/main.obj
+	@echo ... src/main.i
+	@echo ... src/main.s
+	@echo ... src/meshMetrics.obj
+	@echo ... src/meshMetrics.i
+	@echo ... src/meshMetrics.s
 .PHONY : help
 
 
