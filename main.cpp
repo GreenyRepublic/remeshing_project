@@ -1,17 +1,25 @@
+//#include <windef.h>
 #include <igl/viewer/Viewer.h>
 #include <igl/jet.h>
 #include <trimesh.h>
 #include <trimesh_types.h>
 #include <thread>
 #include <stdio.h>
+#include <algorithm>
 #define getSign(a) (a/std::abs(a))
 
 #define MPI 3.1415926536
 
-//Mesh data in Eigen format
-Eigen::MatrixXd meshVerts, meshNorms;
-Eigen::MatrixXi meshFaces;
+struct MeshData
+{
+    std::string name;
+    Eigen::MatrixXd meshVerts;
+    Eigen::MatrixXi meshFaces;
+};
 
+std::shared_ptr<MeshData> activeMesh = nullptr;
+
+std::vector<std::shared_ptr<MeshData>> Meshes;
 //Reformatted mesh as Trimesh structure
 trimesh::trimesh_t fullMesh;
 
@@ -40,10 +48,10 @@ trimesh::triangle_t* convertTris(Eigen::MatrixXi& inFaces)
 }
 
 //Clear the viewer window and redraw the mesh.
-void redraw_mesh(igl::viewer::Viewer &viewer)
+void redraw_mesh(igl::viewer::Viewer &viewer, MeshData& mesh)
 {
     viewer.data.clear();
-    viewer.data.set_mesh(meshVerts, meshFaces);
+    viewer.data.set_mesh(mesh.meshVerts, mesh.meshFaces);
 }
 
 /*
@@ -54,14 +62,31 @@ void compute_curvatures()
     gaussian_curvature(meshVerts, fullMesh, gaussCurvatures);
 }*/
 
+//Auxilliary for libigl's built in setmesh() that handles the new MeshData struct
+void set_mesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer& viewer)
+{
+    std::cout << "Setting mesh: " << mesh->name << std::endl;
+    viewer.data.clear();
+    viewer.data.set_mesh(mesh->meshVerts, mesh->meshFaces);
+    viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
+    activeMesh = mesh;
+}
+
 // This function is called every time a keyboard button is pressed
 bool key_down(igl::viewer::Viewer& viewer, unsigned char key, int modifier)
 {
-    //std::cout<<"Key: "<<key<<" "<<(unsigned int)key<<std::endl;
+    std::cout<<"Key: "<<key<<" "<<(unsigned int)key<<std::endl;
+    unsigned int num = (unsigned int)key - '0';
+    std::cout << "Number: " << num << std::endl;
     if (key == ' ')
     {
-        viewer.core.align_camera_center(meshVerts, meshFaces);
+        viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
         std::cout << "Recenter Camera" << std::endl;
+    }
+    else if (num >= 0 && num < 10)
+    {
+        set_mesh(Meshes.at(std::min<unsigned int>(num, Meshes.size() - 1)), viewer);
+        std::cout << "Setting mesh: " << activeMesh->name << std::endl;
     }
     return false;
 }
@@ -73,51 +98,51 @@ void print_controls()
     std::cout << std::endl;
 }
 
+
 int main(int argc, char *argv[])
 {
     //Thread setup
     //unsigned concurrentThreadsSupported = std::thread::hardware_concurrency();
     //std::vector<std::thread> threads(concurrentThreadsSupported);
-    std::string fileName = argv[1];
-    bool meshLoad = igl::readOFF(fileName, meshVerts, meshFaces);
-    if (!meshLoad)std::cout << "Failed to load " << fileName << std::endl;
-    if (argv[2]) eigenCount = std::stoi(argv[2]);
-    if (argv[3]) smoothStep = std::stod(argv[3], nullptr);
-
-    std::cout << "Vertices: " << meshVerts.size() << std::endl;
-    std::cout << "Faces: " << meshFaces.size() << std::endl;
-
-    //Center mesh at (0,0,0)
-    Eigen::Matrix3d ident;
-    ident.setIdentity();
-    Eigen::Vector3d baryCenter;
-    compute_barycenter(meshVerts, baryCenter);
-    baryCenter *= -1.0;
-    transform_vertices(meshVerts, baryCenter, ident);
+    for (int i = 1; i < argc; i++)
+    {
+        auto mesh = std::make_shared<MeshData>();
+        std::string fileName = argv[i];
+        bool meshLoad = igl::readOFF(fileName, mesh->meshVerts, mesh->meshFaces);
+        if (!meshLoad)
+        {
+            std::cout << "Mesh " << fileName << " not found! Skipping..." << std::endl;
+        }
+        else
+        {
+            std::cout << "Loaded mesh " << fileName << std::endl;
+            mesh->name = fileName;
+            Meshes.push_back(mesh);
+        }
+    }
+    if (Meshes.size() == 0)
+    {
+        std::cout << "No meshes found! Exiting...";
+        return -1;
+    }
 
     igl::viewer::Viewer viewer;
     viewer.callback_key_down = &key_down;
     print_controls();
 
     //Construct trimesh for half-edge data structure access.
-    trimesh::triangle_t* triBuffer = convertTris(meshFaces);
+    /*trimesh::triangle_t* triBuffer = convertTris(meshFaces);
     std::vector<trimesh::edge_t> edgeBuffer;
     unordered_edges_from_triangles(meshFaces.rows(), triBuffer, edgeBuffer);
     fullMesh.build(meshVerts.rows(), meshFaces.rows(), triBuffer, edgeBuffer.size(), &edgeBuffer[0]);
-    delete(triBuffer);
-
-    uniformLaplacian = Eigen::SparseMatrix<double>(meshVerts.rows(), meshVerts.rows());
-    cotanLaplacian = Eigen::SparseMatrix<double>(meshVerts.rows(), meshVerts.rows());
-
-    compute_curvatures();
-
-    viewer.data.set_mesh(meshVerts, meshFaces);
+    delete(triBuffer);*/
 
     Eigen::RowVector3d col;
     col << 0.4, 0.4, 0.4;
     viewer.data.set_colors(col);
 
-    redraw_mesh(viewer);
+    //redraw_mesh(viewer,);
     viewer.launch();
+    //set_mesh(Meshes[0], viewer);
 
 }

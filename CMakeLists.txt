@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 project(remeshing_project)
-
 set(CMAKE_CXX_STANDARD 17)
+
+if(MINGW OR CYGWIN)
+    add_definitions(-O3)
+endif()
 
 link_libraries(../external/glew_2_1_0/lib/Release/Win32/glew32s)
 link_libraries(../external/glfw/lib-vc2015/glfw3)
