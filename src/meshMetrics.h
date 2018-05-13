@@ -26,6 +26,9 @@ struct MeshMetrics
 };
 
 /*Crunches numbers and spits out the result*/
-std::unique_ptr<MeshMetrics> computeMeshMetrics(Eigen::MatrixXd& inVerts, Eigen::MatrixXi& inTris);
-double meshRadius(Eigen::MatrixXd& inVerts);
-void normaliseMesh(double newRadius, Eigen::MatrixXd& inVerts);
+std::unique_ptr<MeshMetrics> computeMeshMetrics(Eigen::MatrixXd&, Eigen::MatrixXi&);
+double meshRadius(Eigen::MatrixXd&);
+
+void scaleMesh(double, Eigen::MatrixXd&);
+void scaleMesh(double, Eigen::MatrixXd&, unsigned int);
+void scaleMesh(double, Eigen::MatrixXd&, unsigned int, unsigned int);

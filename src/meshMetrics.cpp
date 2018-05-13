@@ -3,13 +3,16 @@
 //
 
 #include "meshMetrics.h"
+#include <chrono>
+
+#define LIMIT 1.8E100
 
 double meshRadius(Eigen::MatrixXd& inVerts)
 {
     Eigen::RowVector3d largest, smallest;
 
-    largest << -10000.0, -10000.0, -10000.0;
-    smallest << 10000.0, 10000.0, 10000.0;
+    largest << -LIMIT, -LIMIT, -LIMIT;
+    smallest << LIMIT, LIMIT, LIMIT;
 
     for (int i = 0; i < inVerts.rows(); i++)
     {
@@ -17,16 +20,22 @@ double meshRadius(Eigen::MatrixXd& inVerts)
         if (vert(0) > largest(0) && vert(1) > largest(1) && vert(2) > largest(2)) largest = vert;
         else if (vert(0) < smallest(0) && vert(1) > smallest(1) && vert(2) > smallest(2)) smallest = vert;
     }
-    return (largest - smallest).norm();
+    return std::sqrt((largest - smallest).norm())/2.0;
 }
 
-void normaliseMesh(double newRadius, Eigen::MatrixXd& inVerts)
+void scaleMesh(double scaleFactor, Eigen::MatrixXd& inVerts, unsigned int startInd, unsigned int endInd)
 {
-    double oldRadius = meshRadius(inVerts);
-    for (int i = 0; i < inVerts.rows(); i++)
-    {
-        inVerts.row(i) *= newRadius/oldRadius;
-    }
+    for (int i = startInd; i < std::min<int>(endInd, inVerts.rows()); i++) inVerts.row(i) = inVerts.row(i) * scaleFactor;
+}
+
+void scaleMesh(double scaleFactor, Eigen::MatrixXd& inVerts, unsigned int startInd)
+{
+    scaleMesh(scaleFactor, inVerts, startInd, inVerts.rows());
+}
+
+void scaleMesh(double scaleFactor, Eigen::MatrixXd& inVerts)
+{
+    scaleMesh(scaleFactor, inVerts, 0);
 }
 
 std::unique_ptr<MeshMetrics> computeMeshMetrics(Eigen::MatrixXd& inVerts, Eigen::MatrixXi& inTris)
@@ -36,7 +45,9 @@ std::unique_ptr<MeshMetrics> computeMeshMetrics(Eigen::MatrixXd& inVerts, Eigen:
     double totalArea,
         smallestArea,
         largestArea;
-    totalArea = smallestArea = largestArea = 0.0;
+    totalArea = 0.0;
+    largestArea = 0.0;
+    smallestArea = 10000000000.0;
 
     //First compute areas
     for (int i = 0; i < inTris.rows(); i++)
@@ -58,8 +69,8 @@ std::unique_ptr<MeshMetrics> computeMeshMetrics(Eigen::MatrixXd& inVerts, Eigen:
 
     //Compute variance
     double variance = 0.0;
-    for (auto val : triAreas) variance += (outMetrics->triAreaMean - val) * (outMetrics->triAreaMean - val);
-    outMetrics->triAreaVariance = variance/triAreas.size();
+    for (auto val : triAreas) variance += val * val;
+    outMetrics->triAreaVariance = (variance/(triAreas.size() - 1)) - (outMetrics->triAreaMean * outMetrics->triAreaMean);
 
     return outMetrics;
 }

@@ -1,7 +1,8 @@
 #include "meshMetrics.h"
 #define getSign(a) (a/std::abs(a))
-
 #define MPI 3.1415926536
+#define THREAD_COUNT 4
+using Clock=std::chrono::high_resolution_clock;
 
 struct MeshData
 {
@@ -94,33 +95,30 @@ void printControls()
 }
 
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     //Thread setup
-    std::vector<std::thread> threads(8);
+    Eigen::initParallel();
+    std::thread threadPool[THREAD_COUNT];
 
-    for (int i = 1; i < argc; i++)
-    {
+    for (int i = 1; i < argc; i++) {
         auto mesh = std::make_shared<MeshData>();
         std::string fileName = argv[i];
         bool meshLoad = igl::readOFF(fileName, mesh->meshVerts, mesh->meshFaces);
-        if (!meshLoad)
-        {
+        if (!meshLoad) {
             std::cout << "Mesh " << fileName << " not found! Skipping..." << std::endl;
-        }
-        else
-        {
+        } else {
             std::cout << "Loaded mesh " << fileName << std::endl;
-            mesh->name = fileName;
 
-            //Normalise Mesh size
-            normaliseMesh(10.0, mesh->meshVerts);
+            //Scale mesh
+            unsigned int offset = mesh->meshVerts.rows() / THREAD_COUNT;
+            auto t1 = Clock::now();
+            for (int i = 0; i < THREAD_COUNT; i++) threadPool[i] = std::thread([](double a, Eigen::MatrixXd& b, unsigned int c, unsigned int d){scaleMesh(a, b, c, d);}, 5.0, mesh->meshVerts, i * offset, (offset * (i + 1)));
+            for (int i = 0; i < THREAD_COUNT; i++) threadPool[i].join();
 
             Meshes.push_back(mesh);
         }
     }
-    if (Meshes.size() == 0)
-    {
+    if (Meshes.size() == 0) {
         std::cout << "No meshes found! Exiting...";
         return -1;
     }
@@ -143,6 +141,5 @@ int main(int argc, char *argv[])
     setMesh(Meshes[0], viewer);
 
     viewer.launch();
-
-
 }
+
