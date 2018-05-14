@@ -30,10 +30,10 @@
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/eigen-git-mirror"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glew_2_1_0/include"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/nanoflann"/>
-					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/misc"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/spectra"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge"/>
-					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/src"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/CGAL_4_12/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include"/>
 					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>
@@ -63,10 +63,10 @@
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/eigen-git-mirror"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/glew_2_1_0/include"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/nanoflann"/>
-					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/misc"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/spectra"/>
 					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/halfedge"/>
-					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/src"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external/CGAL_4_12/include"/>
+					<Add directory="S:/Benfclark/Documents/GitHub/remeshing_project/external"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\ATLMFC\include"/>
 					<Add directory="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.14.26428\include"/>
 					<Add directory="C:\Program Files (x86)\Windows Kits\NETFXSDK\4.6.1\include\um"/>

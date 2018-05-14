@@ -8,10 +8,10 @@ endif()
 
 link_libraries(../external/glew_2_1_0/lib/Release/Win32/glew32s)
 link_libraries(../external/glfw/lib-vc2015/glfw3)
-
 link_libraries(../external/openGL/OPENGL32)
 link_libraries(../external/openGL/glut32)
 link_libraries(../external/openGL/glu32)
+link_libraries(../external/CGAL_4_12/lib/CGAL_Core-vc140-mt-4.12)
 
 
 #Header Locations
@@ -21,10 +21,10 @@ set(HEADER_DIRS external/tinyply
         external/eigen-git-mirror/
         external/glew_2_1_0/include/
         external/nanoflann/
-        external/misc/
         external/spectra/
         external/halfedge/
-         src/)
+        external/CGAL_4_12/include
+        external/)
 
 add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h)
 target_include_directories(Remesher PRIVATE ${HEADER_DIRS})

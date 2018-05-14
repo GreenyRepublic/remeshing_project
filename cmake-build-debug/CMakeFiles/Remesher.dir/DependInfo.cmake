@@ -18,10 +18,10 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../external/eigen-git-mirror"
   "../external/glew_2_1_0/include"
   "../external/nanoflann"
-  "../external/misc"
   "../external/spectra"
   "../external/halfedge"
-  "../src"
+  "../external/CGAL_4_12/include"
+  "../external"
   )
 
 # Targets to which this target links.
