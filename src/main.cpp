@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
             for (int i = 0; i < THREAD_COUNT; i++) threadPool[i] = std::thread([](double a, Eigen::MatrixXd& b, unsigned int c, unsigned int d){scaleMesh(a, b, c, d);}, 5.0, mesh->meshVerts, i * offset, (offset * (i + 1)));
             for (int i = 0; i < THREAD_COUNT; i++) threadPool[i].join();
 
+            mesh->name = fileName;
             Meshes.push_back(mesh);
         }
     }
