@@ -1,3 +1,0 @@
-S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/Remesher.dir
-S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/edit_cache.dir
-S:/Benfclark/Documents/GitHub/remeshing_project/cmake-build-debug/CMakeFiles/rebuild_cache.dir
