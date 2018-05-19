@@ -3,6 +3,6 @@
 //
 #pragma once
 #include "dataStructures.h"
-//#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Delaunay_triangulation_2.h>
 
 void parameteriseMesh(MeshData& inMesh);
