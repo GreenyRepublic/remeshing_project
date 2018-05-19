@@ -6,7 +6,6 @@ if(MINGW OR CYGWIN)
     add_definitions(-O3)
 endif()
 
-set(CGAL_DIR S:/dev/cgal)
 
 link_libraries(../external/glew_2_1_0/lib/Release/Win32/glew32s)
 link_libraries(../external/glfw/lib-vc2015/glfw3)
@@ -24,7 +23,7 @@ set(HEADER_DIRS external/tinyply
         external/nanoflann/
         external/spectra/
         external/halfedge/
-        external/cgal/
+        external/CGAL_4_12/include
         external/)
 
 add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h src/remeshingTools.cpp src/remeshingTools.h src/dataStructures.h)
