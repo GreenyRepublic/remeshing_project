@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.9)
 project(remeshing_project)
 set(CMAKE_CXX_STANDARD 17)
 
@@ -6,12 +6,12 @@ if(MINGW OR CYGWIN)
     add_definitions(-O3)
 endif()
 
+
 link_libraries(../external/glew_2_1_0/lib/Release/Win32/glew32s)
 link_libraries(../external/glfw/lib-vc2015/glfw3)
 link_libraries(../external/openGL/OPENGL32)
 link_libraries(../external/openGL/glut32)
 link_libraries(../external/openGL/glu32)
-link_libraries(../external/CGAL_4_12/lib/CGAL_Core-vc140-mt-4.12)
 
 
 #Header Locations
@@ -26,7 +26,7 @@ set(HEADER_DIRS external/tinyply
         external/CGAL_4_12/include
         external/)
 
-add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h)
+add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h src/remeshingTools.cpp src/remeshingTools.h src/dataStructures.h)
 target_include_directories(Remesher PRIVATE ${HEADER_DIRS})
 
 

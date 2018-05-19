@@ -1,18 +1,14 @@
+#include "dataStructures.h"
 #include "meshMetrics.h"
+#include "remeshingTools.h"
 #define getSign(a) (a/std::abs(a))
 #define MPI 3.1415926536
 #define THREAD_COUNT 4
 using Clock=std::chrono::high_resolution_clock;
 
-struct MeshData
-{
-    std::string name;
-    Eigen::MatrixXd meshVerts;
-    Eigen::MatrixXi meshFaces;
-};
-
 std::shared_ptr<MeshData> activeMesh = nullptr;
 std::vector<std::shared_ptr<MeshData>> Meshes;
+bool parameterised = false;
 
 //Reformatted mesh as Trimesh structure
 trimesh::trimesh_t fullMesh;
@@ -55,8 +51,14 @@ void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
 {
     viewer.data.clear();
     activeMesh = mesh;
-    viewer.data.set_mesh(activeMesh->meshVerts, activeMesh->meshFaces);
-    viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
+    if (!parameterised)
+    {
+        viewer.data.set_mesh(activeMesh->meshVerts, activeMesh->meshFaces);
+        viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
+    } else{
+        viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+        viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+    }
 }
 
 // This function is called every time a keyboard button is pressed
@@ -70,6 +72,14 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
         viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
         std::cout << "Recenter Camera" << std::endl;
     }
+
+    else if (key == 'P')
+    {
+        std::cout << "Parameterising Mesh..." << std::endl;
+        parameterised = !parameterised;
+        setMesh(activeMesh, viewer);
+    }
+
     else if (key == 'M')
     {
         std::cout << "Metrics Time!" << std::endl;
@@ -114,6 +124,9 @@ int main(int argc, char *argv[]) {
             auto t1 = Clock::now();
             for (int i = 0; i < THREAD_COUNT; i++) threadPool[i] = std::thread([](double a, Eigen::MatrixXd& b, unsigned int c, unsigned int d){scaleMesh(a, b, c, d);}, 5.0, mesh->meshVerts, i * offset, (offset * (i + 1)));
             for (int i = 0; i < THREAD_COUNT; i++) threadPool[i].join();
+
+            parameteriseMesh(*mesh);
+            scaleMesh(5.0, mesh->parameterisedVerts);
 
             mesh->name = fileName;
             Meshes.push_back(mesh);

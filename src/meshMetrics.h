@@ -1,21 +1,8 @@
 //
 // Created by Ben on 13/05/2018.
 //
-
-#include <igl/viewer/Viewer.h>
-#include <igl/jet.h>
-#include <trimesh.h>
-#include <trimesh_types.h>
-#include <thread>
-#include <stdio.h>
-#include <algorithm>
-#include <memory>
-#include <numeric>
-
-#ifndef REMESHING_PROJECT_MESHMETRICS_H
-#define REMESHING_PROJECT_MESHMETRICS_H
-
-#endif //REMESHING_PROJECT_MESHMETRICS_H
+#pragma once
+#include "dataStructures.h"
 
 struct MeshMetrics
 {
