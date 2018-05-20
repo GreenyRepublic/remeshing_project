@@ -6,13 +6,19 @@ if(MINGW OR CYGWIN)
     add_definitions(-O3)
 endif()
 
-set(CGAL_DIR S:/dev/cgal)
+
+add_definitions(-DCGAL_DIR=$ENV{CGAL_DIR})
+#add_definitions(-DCGAL_LINKED_WITH_TBB)
+#add_definitions(-DCGAL_USE_GMP)
+#add_definitions(-DCGAL_USE_MPFR)
+#add_definitions(-DCGAL_USE_ZLIB)
 
 link_libraries(../external/glew_2_1_0/lib/Release/Win32/glew32s)
 link_libraries(../external/glfw/lib-vc2015/glfw3)
 link_libraries(../external/openGL/OPENGL32)
 link_libraries(../external/openGL/glut32)
 link_libraries(../external/openGL/glu32)
+link_libraries($ENV{CGAL_DIR}/build/lib/Debug/CGAL-vc140-mt-gd-4.12.lib)
 
 
 #Header Locations
@@ -24,12 +30,14 @@ set(HEADER_DIRS external/tinyply
         external/nanoflann/
         external/spectra/
         external/halfedge/
-        external/cgal/
-        external/)
+        external/
+        $ENV{CGAL_DIR}/include/
+        $ENV{CGAL_DIR}/build/include/
+        $ENV{BOOST_INCLUDEDIR}/)
+
 
 add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h src/remeshingTools.cpp src/remeshingTools.h src/dataStructures.h)
 target_include_directories(Remesher PRIVATE ${HEADER_DIRS})
-
 
 
 

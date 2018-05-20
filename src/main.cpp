@@ -75,8 +75,10 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
 
     else if (key == 'P')
     {
-        std::cout << "Parameterising Mesh..." << std::endl;
         parameterised = !parameterised;
+        std::cout << "Parameterised View: " ;
+        if (parameterised) std::cout << " ON" << std::endl;
+        else std::cout << " OFF" << std::endl;
         setMesh(activeMesh, viewer);
     }
 
