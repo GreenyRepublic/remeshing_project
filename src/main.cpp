@@ -1,6 +1,7 @@
 #include "dataStructures.h"
 #include "meshMetrics.h"
 #include "remeshingTools.h"
+#include "delaunayTriangulation.h"
 #define getSign(a) (a/std::abs(a))
 #define MPI 3.1415926536
 #define THREAD_COUNT 4
@@ -82,6 +83,13 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
         setMesh(activeMesh, viewer);
     }
 
+    else if (key == 'D'){
+        std::cout << "Computing Delaunay triangulation ";
+        delaunayTriangulation(*activeMesh);
+
+
+
+    }
     else if (key == 'M')
     {
         std::cout << "Metrics Time!" << std::endl;

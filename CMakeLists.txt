@@ -36,7 +36,15 @@ set(HEADER_DIRS external/tinyply
         $ENV{BOOST_INCLUDEDIR}/)
 
 
-add_executable(Remesher src/main.cpp external/halfedge/trimesh.cpp src/meshMetrics.cpp src/meshMetrics.h src/remeshingTools.cpp src/remeshingTools.h src/dataStructures.h)
+add_executable(Remesher src/main.cpp
+                external/halfedge/trimesh.cpp
+                src/meshMetrics.cpp
+                src/meshMetrics.h
+                src/remeshingTools.cpp
+                src/remeshingTools.h
+                src/dataStructures.h
+                src/delaunayTriangulation.cpp
+                src/delaunayTriangulation.h)
 target_include_directories(Remesher PRIVATE ${HEADER_DIRS})
 
 
