@@ -4,21 +4,13 @@
 
 #include "delaunayTriangulation.h"
 
-typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
-typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
-typedef Triangulation::Point Point;
-typedef Triangulation::Finite_vertices_iterator Vertices_iterator;
-typedef Triangulation::Finite_faces_iterator Faces_iterator;
-typedef Triangulation::Vertex_handle Vertex_handle;
-typedef Triangulation::Face_handle Face_handle;
-
 void delaunayTriangulation(MeshData& inMesh){
 
     /*
      * We first need to get the vertices from the parameterisation
      * and convert them to variables of type Point.
     */
-    //std::vector<Point> pts;
+    std::vector<Point> pts;
     /*
      * Once we have the points, we create a Delaunay triangulation
      * and insert the points in it.
@@ -55,4 +47,20 @@ void delaunayTriangulation(MeshData& inMesh){
      */
 
 
+}
+
+bool delaunayToEigen(Triangulation& in, Eigen::MatrixXd& outVerts)
+{
+    outVerts.resize(Triangulation.number_of_vertices(), 2);
+
+    int i = 0;
+    for (auto vertIterator = Triangulation.all_vertices_begin();
+            vertIterator != Triangulation.all_vertices_end();
+            vertIterator++)
+    {
+        outVerts.row(i)(0) = vertIterator->point()->first;
+        outVerts.row(i)(1) = vertIterator->point()->second;
+        i++;
+    }
+    return true;
 }

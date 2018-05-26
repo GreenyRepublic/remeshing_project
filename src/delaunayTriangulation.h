@@ -5,7 +5,18 @@
 #include "dataStructures.h"
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Triangulation_ds_vertex_base_2.h>
+
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
+typedef Triangulation::Point Point;
+typedef Triangulation::Finite_vertices_iterator Vertices_iterator;
+typedef Triangulation::Finite_faces_iterator Faces_iterator;
+typedef Triangulation::Vertex_handle Vertex_handle;
+typedef Triangulation::Face_handle Face_handle;
 
 void delaunayTriangulation(MeshData& inMesh);
 
-
+//Converts CGAL Delaunay triangulation parameter-space mesh to Eigen MatrixXd parameter-space verts.
+bool delaunayToEigen(Triangulation&, Eigen::MatrixXd&);
+bool eigenToDelaunay(Eigen::MatrixXd&, Triangulation&);

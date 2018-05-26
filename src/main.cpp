@@ -39,13 +39,6 @@ void redrawMesh(igl::viewer::Viewer &viewer, MeshData &mesh)
     viewer.data.set_mesh(mesh.meshVerts, mesh.meshFaces);
 }
 
-/*
-void compute_curvatures()
-{
-    mean_curvature(meshVerts, fullMesh, uniformCurvatures, uniformLaplacian, uniform);
-    mean_curvature(meshVerts, fullMesh, cotanCurvatures, cotanLaplacian, cotangent);
-    gaussian_curvature(meshVerts, fullMesh, gaussCurvatures);
-}*/
 
 //Auxilliary for libigl's built in setmesh() that handles the new MeshData struct
 void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
@@ -86,9 +79,6 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     else if (key == 'D'){
         std::cout << "Computing Delaunay triangulation ";
         delaunayTriangulation(*activeMesh);
-
-
-
     }
     else if (key == 'M')
     {
@@ -130,11 +120,6 @@ int main(int argc, char *argv[]) {
             std::cout << "Loaded mesh " << fileName << std::endl;
 
             //Scale mesh
-            unsigned int offset = mesh->meshVerts.rows() / THREAD_COUNT;
-            auto t1 = Clock::now();
-            for (int i = 0; i < THREAD_COUNT; i++) threadPool[i] = std::thread([](double a, Eigen::MatrixXd& b, unsigned int c, unsigned int d){scaleMesh(a, b, c, d);}, 5.0, mesh->meshVerts, i * offset, (offset * (i + 1)));
-            for (int i = 0; i < THREAD_COUNT; i++) threadPool[i].join();
-
             parameteriseMesh(*mesh);
             scaleMesh(5.0, mesh->parameterisedVerts);
 
