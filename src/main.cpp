@@ -79,6 +79,7 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     else if (key == 'D'){
         std::cout << "Computing Delaunay triangulation ";
         delaunayTriangulation(*activeMesh);
+        setMesh(activeMesh, viewer);
     }
     else if (key == 'M')
     {

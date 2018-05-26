@@ -26,27 +26,11 @@ void delaunayTriangulation(MeshData& inMesh){
      *
      *
      */
-    /*
-    Vertices_iterator v_it;
-    std::map<Vertex_handle, int> vertices;
-    int index = 0;
-    for(v_it = dt.finite_vertices_begin(); v_it!= dt.finite_vertices_end(); v_it++){
-        vertices[v_it] = index;
-        index++;
-    }
-
-    //Iterate the faces
-    std::map<Face_handle, int> Faces;
-    std::map<Face_handle, std::list<int>> Faces_test;
-    int index_aux = 0;
-    Faces_iterator f_it;
-
-    for(f_it = dt.finite_faces_begin(); f_it!= dt.finite_faces_end(); ++v_it){
-        int v0ind = vertices.find(f_it->vertex(0)->point())->second;
-        int v1ind = vertices.find(f_it->vertex(1)->point())->second;
-        int v2ind = vertices.find(f_it->vertex(2)->point())->second;
-    }
-     */
+    Eigen::MatrixXi delaunayFaces;
+    //this is me trying to debug
+    printf("Hello");
+    delaunayToEigen(dt, delaunayFaces);
+    inMesh.meshFaces = delaunayFaces;
 
 
 }
@@ -62,6 +46,33 @@ bool eigenToDelaunay(Eigen::MatrixXd& inVerts, std::vector<Point>& outPoints){
 
 }
 
+bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces){
+    int index = 0;
+    Vertices_iterator v_it;
+    Faces_iterator f_it;
+
+    for(v_it= in.finite_vertices_begin(); v_it < in.finite_vertices_end(); ++v_it){
+        v_it->info() =index++;
+    }
+
+    int size = 0;
+
+    //I don't know how to get the number of faces in the delaunay triangulation
+    for(f_it = in.finite_faces_begin(); f_it < in.finite_faces_end(); ++f_it){
+        size++;
+    }
+
+    outFaces.resize(size, 3);
+    int row= 0;
+    for(f_it = in.finite_faces_begin(); f_it < in.finite_faces_end(); ++f_it){
+        outFaces(row, 0) = f_it->vertex(0)->info();
+        outFaces(row, 1) = f_it->vertex(1)->info();
+        outFaces(row, 2) = f_it->vertex(2)->info();
+        row++;
+    }
+
+    return true;
+}
 /*
 bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces)
 {
