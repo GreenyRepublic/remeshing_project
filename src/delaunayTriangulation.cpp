@@ -51,6 +51,28 @@ void delaunayTriangulation(MeshData& inMesh){
 
 }
 
+void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts, int iterations)
+{
+    for (int i = 0; i < iterations; i++) {
+        int j = 0;
+        //Construct voronoi cell for each vertex, then shift it to that cell's centroid
+        for (auto iter = inTri.all_vertices_begin();
+             iter != inTri.all_vertices_end();
+             iter++) {
+            //Construct polygon from circumcircle centers of incident polygons
+            Point centroid(0.0, 0.0);
+            int count = 0;
+            for (auto face : iter->incident_faces()) {
+                centroid += inTri.dual(face);
+                count++;
+            }
+            iter->set_point(centroid / count);
+            outVerts.row(j)[0] = iter->point().first;
+            outVerts.row(j)[1] = iter->point().second;
+            j++;
+        }
+    }
+}
 
 bool eigenToDelaunay(Eigen::MatrixXd& inVerts, std::vector<Point>& outPoints){
     for(int row= 0; row < inVerts.rows(); row++){
