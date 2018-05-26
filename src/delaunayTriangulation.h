@@ -18,5 +18,5 @@ typedef Triangulation::Face_handle Face_handle;
 void delaunayTriangulation(MeshData& inMesh);
 
 //Converts CGAL Delaunay triangulation parameter-space mesh to Eigen MatrixXd parameter-space verts.
-bool delaunayToEigen(Triangulation&, Eigen::MatrixXd&);
-bool eigenToDelaunay(Eigen::MatrixXd&, Triangulation&);
+//bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces);
+bool eigenToDelaunay(Eigen::MatrixXd& inVerts, std::vector<Point>& outPoints);

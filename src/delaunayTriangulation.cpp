@@ -10,18 +10,20 @@ void delaunayTriangulation(MeshData& inMesh){
      * We first need to get the vertices from the parameterisation
      * and convert them to variables of type Point.
     */
-    std::vector<Point> pts;
+    std::vector<Point> pts(inMesh.parameterisedVerts.rows());
+    eigenToDelaunay(inMesh.parameterisedVerts, pts);
+    //  std::cout << "Size: " << pts.size() << std::endl;
     /*
      * Once we have the points, we create a Delaunay triangulation
      * and insert the points in it.
      */
     Triangulation dt;
-    //dt.insert(pts.begin(), pts.end());
+    dt.insert(pts.begin(), pts.end());
 
     /*
      * We now need to get the faces back to be able to render
      * the new triangulation on the 2D parameterisation.
-     * To do this we use a Finite_vertices_iterator and then a Finite_cells_iterator
+     *
      *
      */
     /*
@@ -49,9 +51,21 @@ void delaunayTriangulation(MeshData& inMesh){
 
 }
 
-bool delaunayToEigen(Triangulation& in, Eigen::MatrixXd& outVerts)
+
+bool eigenToDelaunay(Eigen::MatrixXd& inVerts, std::vector<Point>& outPoints){
+    for(int row= 0; row < inVerts.rows(); row++){
+
+        outPoints[row] = Point(inVerts(row, 0), inVerts(row, 1));
+
+    }
+    return true;
+
+}
+
+/*
+bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces)
 {
-    outVerts.resize(Triangulation.number_of_vertices(), 2);
+    //outVerts.resize(Triangulation.number_of_vertices(), 2);
 
     int i = 0;
     for (auto vertIterator = Triangulation.all_vertices_begin();
@@ -64,3 +78,4 @@ bool delaunayToEigen(Triangulation& in, Eigen::MatrixXd& outVerts)
     }
     return true;
 }
+ */
