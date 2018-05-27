@@ -49,44 +49,43 @@ void delaunayTriangulation(MeshData& inMesh){
     lloydRelaxation(dt, inMesh.parameterisedVerts);
 }
 
+
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
+    //Initialise voronoi diagram
     VoronoiDiag vd(inTri);
-    //Iterate over voronoi cels
-    for (auto iter = vd.faces_begin();
-         iter != vd.faces_end();
-         iter++) {
-        //Take cell, convert to polygon, do area().
-        //poly2 poly(iter->vertices);
+
+    int vert = 0;
+    //Iterate over vertices
+    for (auto iter = inTri.vertices_begin();
+            iter != inTri.vertices_end();
+            iter++)
+    {
+        //Find corresponding cell, convert to polygon, do area().
+        //First get cell verts (why is this so messy whyyy)
+        auto cell = vd.dual(iter);
+        std::vector<boostPoint> cellVerts;
+        auto ec_start = cell->ccb();
+        auto ec = ec_start;
+        do
+        {
+            if (ec->has_source()) cellVerts.push_back(
+                        boostPoint(ec->source()->point().x(),
+                                   ec->source()->point().y()));
+        } while(++ec != ec_start);
+
+        //Construct a boost polygon and get the centroid.
+        boostPolygon poly;
+        boostPoint centroid;
+        boost::geometry::assign_points(poly, cellVerts);
+        boost::geometry::centroid(poly, centroid);
+        //std::cout << "Centroid: " << centroid.x() << ", " << centroid.y() << std::endl;
+
+        //Assign the centroid to the output
+        outVerts(vert, 0) = centroid.x();
+        outVerts(vert, 1) = centroid.y();
+        vert++;
     }
-
-    /*
-    //Construct voronoi adaptation
-    for (auto iter = inTri.finite_vertices_begin();
-         iter != inTri.finite_vertices_end();
-         iter++) {
-        //Construct polygon from circumcircle centers of incident polygons
-        Point centroid(0.0, 0.0);
-        int count = 0;
-        auto face = iter->incident_faces();
-        auto end = face;
-        do {
-            if (!inTri.is_infinite(face))
-            {
-                centroid.x() += inTri.dual(face).x();
-                centroid.y() += inTri.dual(face).y();
-                count++;
-            }
-        } while(++face != end);
-
-        iter->set_point(Point(centroid.x()/(double)count, centroid.y()/(double)count));
-
-        std::cout << "Distance: " << CGAL::squared_distance(*iter, centroid) << std::endl;
-
-        int index = iter->info();
-        outVerts(index, 0) = iter->point().x();
-        outVerts(index, 1) = iter->point().y();*/
-
 }
 
 bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces){
