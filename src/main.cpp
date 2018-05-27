@@ -45,13 +45,15 @@ void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
 {
     viewer.data.clear();
     activeMesh = mesh;
+    //std::cout << "Normal stats: " << activeMesh->meshVerts.rows() << " verts. " << activeMesh->meshFaces.rows() << " tris." << std::endl;
+    //std::cout << "Param stats: " << activeMesh->parameterisedVerts.rows() << " verts. " << activeMesh->delaunayFaces.rows() << " tris." << std::endl;
     if (!parameterised)
     {
         viewer.data.set_mesh(activeMesh->meshVerts, activeMesh->meshFaces);
         viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
     } else{
-        viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->meshFaces);
-        viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+        viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->delaunayFaces);
+        viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->delaunayFaces);
     }
 }
 
@@ -60,7 +62,6 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
 {
     std::cout<<"Key: "<<key<<" "<<(unsigned int)key<<std::endl;
     unsigned int num = (unsigned int)key - '0';
-    std::cout << "Number: " << num << std::endl;
     if (key == ' ')
     {
         viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
@@ -77,7 +78,7 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     }
 
     else if (key == 'D'){
-        std::cout << "Computing Delaunay triangulation ";
+        std::cout << "Computing Delaunay triangulation";
         delaunayTriangulation(*activeMesh);
         setMesh(activeMesh, viewer);
     }
@@ -125,6 +126,7 @@ int main(int argc, char *argv[]) {
             scaleMesh(5.0, mesh->parameterisedVerts);
 
             mesh->name = fileName;
+            mesh->delaunayFaces = mesh->meshFaces;
             Meshes.push_back(mesh);
         }
     }
