@@ -52,13 +52,12 @@ void delaunayTriangulation(MeshData& inMesh){
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
     VoronoiDiag vd(inTri);
-    for (auto iter = inTri.finite_vertices_begin();
-         iter != inTri.finite_vertices_end();
-         iter++)
-    {
-        auto cell = vd.locate(*iter);
-        //double area =
-        //
+    //Iterate over voronoi cels
+    for (auto iter = vd.faces_begin();
+         iter != vd.faces_end();
+         iter++) {
+        //Take cell, convert to polygon, do area().
+        //poly2 poly(iter->vertices);
     }
 
     /*
@@ -95,14 +94,8 @@ bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces){
     //I don't know how to get the number of faces in the delaunay triangulation
             //in.number_of_faces(), ;) -Ben
     //Get non-infinite faces because according to CGAL this shouldn't be an easy thing to do. Bastards.
-    int faces = 0;
-    for (auto faceCont = in.finite_faces_begin();
-            faceCont != in.finite_faces_end();
-            ++faceCont)
-    {
-        faces++;
-    }
-    outFaces.resize(faces, 3);
+
+    outFaces.resize(in.number_of_faces(), 3);
     int row= 0;
     for(auto f_it = in.finite_faces_begin(); f_it != in.finite_faces_end(); ++f_it){
         outFaces(row, 0) = f_it->vertex(0)->info();
