@@ -4,7 +4,7 @@
 
 #include "delaunayTriangulation.h"
 
-void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh, Eigen::MatrixXd& voronoiPoints){
+void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
 
     /*
      * We first need to get the vertices from the parameterisation
@@ -42,7 +42,7 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh, Eigen::MatrixXd&
 }
 
 
-void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts, Eigen::MatrixXd& voronoiPoints)
+void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
     //Initialise voronoi diagram
     VoronoiDiag vd(inTri);
