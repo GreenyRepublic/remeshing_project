@@ -86,7 +86,7 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
         Meshes.push_back(std::make_shared<MeshData>());
         delaunayTriangulation(*activeMesh, **Meshes.rbegin());
         setMesh(*Meshes.rbegin(), viewer);
-        viewer.data.set_points(activeMesh->parameterisedVerts, Eigen::RowVector3d(0.8,0.3,0.3));
+        //viewer.data.set_points((*Meshes.rbegin())->parameterisedVerts, Eigen::RowVector3d(0.8,0.3,0.3));
     }
     else if (key == 'M')
     {
