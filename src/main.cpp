@@ -10,6 +10,7 @@ using Clock=std::chrono::high_resolution_clock;
 MeshData activeMesh;
 std::vector<MeshData> Meshes;
 bool parameterised = false;
+int iterations = 1;
 
 //Reformatted mesh as Trimesh structure
 trimesh::trimesh_t fullMesh;
@@ -120,10 +121,9 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     }
 
     else if (key == 'D'){
-        int iter = 10;
-        std::cout << "Remeshing with " << iter << " iterations.";
+        std::cout << "Remeshing with " << iterations << " iterations.";
         MeshData newMesh;
-        remesh(activeMesh, newMesh, iter);
+        remesh(activeMesh, newMesh, iterations);
         setMesh(newMesh, viewer);
         Meshes.push_back(newMesh);
     }
@@ -168,21 +168,23 @@ void printControls()
 
 int main(int argc, char *argv[]) {
 
-    for (int i = 1; i < argc; i++) {
-        MeshData mesh;
-        std::string fileName = argv[i];
-        bool meshLoad = igl::readOFF(fileName, mesh.meshVerts, mesh.meshFaces);
-        if (!meshLoad) {
-            std::cout << "Mesh " << fileName << " not found! Skipping..." << std::endl;
-        } else {
-            std::cout << "Loaded mesh " << fileName << std::endl;
-
-            //Scale mesh
-
-            mesh.name = fileName;
-            Meshes.push_back(mesh);
-        }
+    MeshData mesh;
+    std::string fileName = argv[1];
+    bool meshLoad = igl::readOFF(fileName, mesh.meshVerts, mesh.meshFaces);
+    if (!meshLoad) {
+        std::cout << "Mesh " << fileName << " not found! Skipping..." << std::endl;
+    } else {
+        std::cout << "Loaded mesh " << fileName << std::endl;
+        //Scale mesh
+        mesh.name = fileName;
+        Meshes.push_back(mesh);
     }
+    if (argc == 3)
+    {
+        std::cout << std::stoi(argv[2]) << std::endl;
+        iterations = std::stoi(argv[2]);
+    }
+
     if (Meshes.size() == 0) {
         std::cout << "No meshes found! Exiting...";
         return -1;

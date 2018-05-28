@@ -45,7 +45,6 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
         for (int j = 0; j < inMesh.meshFaces.rows(); j++)
         {
             Eigen::RowVector2d a, b, c;
-            //std::cout << inMesh.meshFaces(j,0) << " " << inMesh.meshFaces(j,1) << " " << inMesh.meshFaces(j,2) << std::endl;
             a = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,0));
             b = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,1));
             c = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,2));
@@ -58,10 +57,6 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
                 indices = inMesh.meshFaces.row(j);
                 break; }
         }
-        //barycentricCoord(vert,a, b, c, baryCoord);
-        //std::cout << "Point: " << vert << std::endl;
-        //std::cout << "Triangle: " << a << ", " << b << ", " << c << std::endl;;
-        //std::cout << "Barycentric coord: " << baryCoord << std::endl;
 
         //Assign new vert to final outMesh
         outMesh.meshVerts.row(i) = (baryCoord(0) * inMesh.meshVerts.row(indices(0))) +
@@ -69,5 +64,4 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
                 (baryCoord(2) * inMesh.meshVerts.row(indices(2)));
     }
     outMesh.parameterisedVerts = tempOut.parameterisedVerts;
-    //std::cout << "Remeshing complete!" << std::endl;
 }
