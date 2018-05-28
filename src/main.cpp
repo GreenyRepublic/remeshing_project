@@ -88,7 +88,7 @@ void setMesh(MeshData& mesh, igl::viewer::Viewer &viewer)
         viewer.data.set_mesh(activeMesh.meshVerts, activeMesh.meshFaces);
         //centerMesh(activeMesh);
         viewer.core.align_camera_center(activeMesh.meshVerts, activeMesh.meshFaces);
-    } else {
+    } else if (activeMesh.parameterisedVerts.rows() != 0){
         viewer.data.set_mesh(activeMesh.parameterisedVerts, activeMesh.meshFaces);
         //centerMesh(activeMesh);
         viewer.core.align_camera_center(activeMesh.parameterisedVerts, activeMesh.meshFaces);
@@ -120,9 +120,8 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     }
 
     else if (key == 'D'){
-        std::cout << "Computing Delaunay triangulation";
+        std::cout << "Remeshing with " << 1 << " iterations.";
         MeshData newMesh;
-        Eigen::MatrixXd voronoi;
         delaunayTriangulation(activeMesh, newMesh);
         setMesh(newMesh, viewer);
         Meshes.push_back(newMesh);
@@ -181,9 +180,6 @@ int main(int argc, char *argv[]) {
             std::cout << "Loaded mesh " << fileName << std::endl;
 
             //Scale mesh
-            parameteriseMesh(mesh);
-            mesh.parameterisedVerts *= 10.0;
-            //scaleMesh(5.0, mesh->parameterisedVerts);
 
             mesh.name = fileName;
             Meshes.push_back(mesh);
