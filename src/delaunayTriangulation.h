@@ -34,10 +34,10 @@ typedef Triangulation::Finite_faces_iterator Faces_iterator;
 typedef Triangulation::Vertex_handle Vertex_handle;
 typedef Triangulation::Face_handle Face_handle;
 
-void delaunayTriangulation(MeshData&, MeshData&, Eigen::MatrixXd&);
+void delaunayTriangulation(MeshData&, MeshData&);
 
 //Performs Lloyd Relaxation on parameter-space vertices for some iterations
-void lloydRelaxation(Triangulation&, Eigen::MatrixXd&, Eigen::MatrixXd&);
+void lloydRelaxation(Triangulation&, Eigen::MatrixXd&);
 
 //Converts CGAL Delaunay triangulation parameter-space mesh to Eigen MatrixXd parameter-space verts.
 bool delaunayToEigen(Triangulation& in, Eigen::MatrixXi& outFaces);
