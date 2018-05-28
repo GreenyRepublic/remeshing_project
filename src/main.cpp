@@ -165,6 +165,10 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
 void printControls()
 {   std::cout << std::endl;
     std::cout << "# New Key Bindings #" << std::endl;
+    std::cout << "0-9: Set mesh" << std::endl;
+    std::cout << "D: Remesh current mesh" << std::endl;
+    std::cout << "E: Compute mesh evaluation metrics" << std::endl;
+    std::cout << "P: Toggle parameterised mesh view" << std::endl;
     std::cout << "(Spacebar) : Recenter camera" << std::endl;
     std::cout << std::endl;
 }
