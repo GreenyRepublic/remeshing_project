@@ -120,7 +120,7 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     }
 
     else if (key == 'D'){
-        int iter = 1;
+        int iter = 10;
         std::cout << "Remeshing with " << iter << " iterations.";
         MeshData newMesh;
         remesh(activeMesh, newMesh, iter);
