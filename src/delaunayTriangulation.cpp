@@ -45,7 +45,7 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
     //Initialise voronoi diagram
-    VoronoiDiag vd(inTri);x
+    VoronoiDiag vd(inTri);
     //Iterate over vertices
     for (auto iter = inTri.finite_vertices_begin();
             iter != inTri.finite_vertices_end();

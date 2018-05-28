@@ -136,6 +136,20 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
         std::cout << "Largest: " << metrics->triAreaLargest << std::endl;
         std::cout << "Smallest: " << metrics->triAreaSmallest << std::endl;
     }
+    else if (key == 'E'){
+        //Evaluation
+        std::cout << "Evaluation" << std::endl;
+        Eigen::VectorXd cr, ir;
+        igl::circumradius(activeMesh.meshVerts, activeMesh.meshFaces, cr);
+        igl::inradius(activeMesh.meshVerts, activeMesh.meshFaces, ir);
+        //Calculating aspect ratio as the circumradius of each triangle
+        //divided by twice the inradius of each triangle
+        Eigen::VectorXd aspectRatio = cr.cwiseProduct(ir.cwiseInverse())*0.5;
+        //Displaying the mean aspect ratio for the mesh
+        double mean = aspectRatio.mean();
+        std::cout << "Mean aspect ratio: " << mean << std::endl;
+
+    }
     else if (num >= 0 && num < 10)
     {
         setMesh(Meshes.at(std::min<unsigned int>((num - 1) % 10, Meshes.size() - 1)), viewer);

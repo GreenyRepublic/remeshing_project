@@ -7,6 +7,8 @@
 #include <igl/jet.h>
 #include <igl/boundary_loop.h>
 #include <igl/map_vertices_to_circle.h>
+#include <igl/circumradius.h>
+#include <igl/inradius.h>
 #include <igl/harmonic.h>
 #include <igl/lscm.h>
 #include <trimesh.h>
