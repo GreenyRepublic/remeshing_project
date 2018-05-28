@@ -35,9 +35,10 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
      *
      */
     delaunayToEigen(dt, outMesh.meshFaces);
+    outMesh.parameterisedVerts= inMesh.parameterisedVerts;
 
     std::cout << std::endl << "Running Lloyd Relaxation..." << std::endl;
-    lloydRelaxation(dt, outMesh.parameterisedVerts);
+    //lloydRelaxation(dt, outMesh.parameterisedVerts);
 }
 
 
