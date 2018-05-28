@@ -5,7 +5,7 @@
 #include "delaunayTriangulation.h"
 
 void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
-
+    std::cout << std::endl << "Triangulating..." << std::endl;
     /*
      * We first need to get the vertices from the parameterisation
      * and convert them to variables of type Point.
@@ -34,14 +34,13 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
      */
     delaunayToEigen(dt, outMesh.meshFaces);
     outMesh.parameterisedVerts = inMesh.parameterisedVerts;
-
-    std::cout << std::endl << "Running Lloyd Relaxation..." << std::endl;
     lloydRelaxation(dt, outMesh.parameterisedVerts);
 }
 
 
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
+    std::cout << "Running Lloyd Relaxation..." << std::endl;
     //Initialise voronoi diagram
     VoronoiDiag vd(inTri);
     //Iterate over vertices

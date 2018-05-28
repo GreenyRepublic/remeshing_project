@@ -44,6 +44,8 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
     //Parameter-space retriangulation loop.
     for (int i = 0; i < iterations; i++) delaunayTriangulation(tempIn, tempOut);
 
+    std::cout << "Re-triangulation Complete!" << std::endl;
+
     //Pull back into 3d space
     //tempIn now contains original parameterisation, tempOut contains remeshed parameterisation
     //Since CGAL is being an ass we will have to do this lookup the nasty way
@@ -53,6 +55,7 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
         //Find the owning triangle
         Eigen::Vector2d vert = tempOut.parameterisedVerts.row(i);
         boostPoint point(vert(0), vert(1));
+        std::cout << std::endl << "Testing point: " << vert << std::endl;
         Eigen::RowVector3i triIndices;
         for (int j = 0; j < tempIn.meshFaces.rows(); j++)
         {
@@ -64,13 +67,14 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
             boostPolygon tri{{boostPoint(tri0(0), tri0(1))},
                              {boostPoint(tri1(0), tri1(1))},
                              {boostPoint(tri2(0), tri2(1))}};
-            if (boost::geometry::within(point, tri))
+            if (boost::geometry::covered_by(point, tri))
             {
                 triIndices << tempIn.meshFaces(j,0), tempIn.meshFaces(j,1), tempIn.meshFaces(j,2);
                 std::cout << "Found!" << triIndices << std::endl;
                 break;
             }
         }
+        std::cout << std::endl << "DING" << std::endl;
         //Found tri, now barycenter crunch
         Eigen::Vector3d baryCoord;
         Eigen::Vector2d a, b, c;

@@ -120,9 +120,10 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     }
 
     else if (key == 'D'){
-        std::cout << "Remeshing with " << 1 << " iterations.";
+        int iter = 1;
+        std::cout << "Remeshing with " << iter << " iterations.";
         MeshData newMesh;
-        delaunayTriangulation(activeMesh, newMesh);
+        remesh(activeMesh, newMesh, iter);
         setMesh(newMesh, viewer);
         Meshes.push_back(newMesh);
     }
@@ -166,9 +167,6 @@ void printControls()
 
 
 int main(int argc, char *argv[]) {
-    //Thread setup
-    Eigen::initParallel();
-    std::thread threadPool[THREAD_COUNT];
 
     for (int i = 1; i < argc; i++) {
         MeshData mesh;
