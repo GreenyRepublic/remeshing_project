@@ -2,9 +2,6 @@
 #include "meshMetrics.h"
 #include "remeshingTools.h"
 #include "delaunayTriangulation.h"
-#define getSign(a) (a/std::abs(a))
-#define MPI 3.1415926536
-#define THREAD_COUNT 4
 using Clock=std::chrono::high_resolution_clock;
 
 MeshData activeMesh;
@@ -122,8 +119,15 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
 
     else if (key == 'D'){
         std::cout << "Remeshing with " << iterations << " iterations.";
+        auto t1 = Clock::now();
         MeshData newMesh;
         remesh(activeMesh, newMesh, iterations);
+        auto t2 = Clock::now();
+
+        std::cout << "Remeshing completed in "
+                  << ((double)(std::chrono::duration_cast<std::chrono::milliseconds >(t2 - t1).count())/1000.0)
+                  << " seconds" << std::endl;
+
         setMesh(newMesh, viewer);
         Meshes.push_back(newMesh);
     }

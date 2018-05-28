@@ -14,6 +14,7 @@
     <list default="true" id="0dbc3ca1-f7d5-4f99-9c98-ed4215d9d269" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/remeshingTools.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/remeshingTools.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/remeshingTools.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/remeshingTools.h" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,53 +27,20 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="delaunayTriangulation.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="19" selection-start-line="19" selection-end-line="21" selection-end-column="59" />
-              <folding>
-                <element signature="e#54#81#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="delaunayTriangulation.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-187">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="remeshingTools.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="remeshingTools.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/remeshingTools.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="826">
-              <caret line="65" column="60" selection-start-line="65" selection-start-column="60" selection-end-line="65" selection-end-column="60" />
+            <state relative-caret-position="323">
+              <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="remeshingTools.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/remeshingTools.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="2" lean-forward="true" selection-start-column="2" selection-end-column="2" />
-              <folding>
-                <element signature="e#52#79#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="386">
-              <caret line="183" column="17" lean-forward="true" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
+            <state relative-caret-position="391">
+              <caret line="133" column="24" selection-start-line="133" selection-start-column="24" selection-end-line="133" selection-end-column="24" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -115,10 +83,10 @@
         <option value="$PROJECT_DIR$/src/delaunayTriangulation.h" />
         <option value="$PROJECT_DIR$/src/dataStructures.h" />
         <option value="$PROJECT_DIR$/external/libigl/include/igl/map_vertices_to_circle.cpp" />
-        <option value="$PROJECT_DIR$/src/remeshingTools.h" />
         <option value="$PROJECT_DIR$/src/delaunayTriangulation.cpp" />
-        <option value="$PROJECT_DIR$/src/remeshingTools.cpp" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/src/remeshingTools.h" />
+        <option value="$PROJECT_DIR$/src/remeshingTools.cpp" />
       </list>
     </option>
   </component>
@@ -227,12 +195,12 @@
       <workItem from="1527500230927" duration="16839000" />
       <workItem from="1527515365136" duration="802000" />
       <workItem from="1527520474692" duration="8499000" />
-      <workItem from="1527529201051" duration="11012000" />
+      <workItem from="1527529201051" duration="12481000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215246000" />
+    <option name="totallyTimeSpent" value="216715000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -479,6 +447,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/external/libigl/include/igl/harmonic.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="133" column="24" selection-start-line="133" selection-start-column="24" selection-end-line="133" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-391">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -491,42 +483,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/remeshingTools.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="2" lean-forward="true" selection-start-column="2" selection-end-column="2" />
+        <state relative-caret-position="136">
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
           <folding>
             <element signature="e#52#79#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/external/libigl/include/igl/harmonic.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="25" column="21" selection-start-line="25" selection-start-column="21" selection-end-line="25" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/remeshingTools.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="826">
-          <caret line="65" column="60" selection-start-line="65" selection-start-column="60" selection-end-line="65" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-187">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="183" column="17" lean-forward="true" selection-start-line="183" selection-start-column="17" selection-end-line="183" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="323">
+          <caret line="25" column="25" selection-start-line="25" selection-start-column="25" selection-end-line="25" selection-end-column="25" />
         </state>
       </provider>
     </entry>

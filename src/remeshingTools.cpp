@@ -4,6 +4,18 @@
 
 #include "remeshingTools.h"
 
+void parameterise(MeshData& inMesh)
+{
+    Eigen::VectorXi boundaryData, boundaryIndices(2);
+    igl::boundary_loop(inMesh.meshFaces, boundaryData);
+
+    Eigen::MatrixXd bnd_uv;
+    igl::map_vertices_to_circle(inMesh.meshVerts,boundaryData,bnd_uv);
+
+    // Harmonic parametrization for the internal vertices
+    igl::harmonic(inMesh.meshVerts,inMesh.meshFaces,boundaryData,bnd_uv,1,inMesh.parameterisedVerts);
+}
+
 void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
 {
     //Temporary working copies of things for safety.
@@ -11,19 +23,15 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
     MeshData tempIn = inMesh;
     MeshData tempOut;
 
-    //First parameterise
-    Eigen::VectorXi boundaryData, boundaryIndices(2);
-    igl::boundary_loop(tempIn.meshFaces, boundaryData);
-
-    Eigen::MatrixXd bnd_uv;
-    igl::map_vertices_to_circle(tempIn.meshVerts,boundaryData,bnd_uv);
-
-    // Harmonic parametrization for the internal vertices
-    igl::harmonic(tempIn.meshVerts,tempIn.meshFaces,boundaryData,bnd_uv,1,tempIn.parameterisedVerts);
+    parameterise(tempIn);
     inMesh.parameterisedVerts = tempIn.parameterisedVerts;
 
     //Parameter-space retriangulation loop.
-    for (int i = 0; i < iterations; i++) delaunayTriangulation(tempIn, tempOut);
+    for (int i = 0; i < iterations; i++)
+    {
+        delaunayTriangulation(tempIn, tempOut);
+        tempIn = tempOut;
+    }
 
     //std::cout << "Re-triangulation Complete!" << std::endl;
 
@@ -45,9 +53,9 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
         for (int j = 0; j < inMesh.meshFaces.rows(); j++)
         {
             Eigen::RowVector2d a, b, c;
-            a = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,0));
-            b = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,1));
-            c = tempIn.parameterisedVerts.row(inMesh.meshFaces(j,2));
+            a = inMesh.parameterisedVerts.row(inMesh.meshFaces(j,0));
+            b = inMesh.parameterisedVerts.row(inMesh.meshFaces(j,1));
+            c = inMesh.parameterisedVerts.row(inMesh.meshFaces(j,2));
 
             igl::barycentric_coordinates(vert, a, b, c, baryCoord);
             if (baryCoord(0) >= 0.0 && baryCoord(0) <= 1.0 &&
