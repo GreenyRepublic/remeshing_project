@@ -4,7 +4,7 @@
 
 #include "delaunayTriangulation.h"
 
-void delaunayTriangulation(MeshData& inMesh){
+void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
 
     /*
      * We first need to get the vertices from the parameterisation
@@ -34,19 +34,10 @@ void delaunayTriangulation(MeshData& inMesh){
      *
      *
      */
-    Eigen::MatrixXi delaunayFaces;
-    delaunayToEigen(dt, delaunayFaces);
-    inMesh.delaunayFaces = delaunayFaces;
+    delaunayToEigen(dt, outMesh.meshFaces);
 
-    for (int i = 0; i < delaunayFaces.rows(); i++)
-    {
-        if (delaunayFaces(i, 0) > pts.size()) std::cout << "Found face with bad index: " << delaunayFaces(i, 0);
-        if (delaunayFaces(i, 1) > pts.size()) std::cout << "Found face with bad index: " << delaunayFaces(i, 1);
-        if (delaunayFaces(i, 2) > pts.size()) std::cout << "Found face with bad index: " << delaunayFaces(i, 2);
-    }
-
-    std::cout << std::endl << "Running Lloyd Relaxation: " << std::endl;
-    lloydRelaxation(dt, inMesh.parameterisedVerts);
+    std::cout << std::endl << "Running Lloyd Relaxation..." << std::endl;
+    lloydRelaxation(dt, outMesh.parameterisedVerts);
 }
 
 
@@ -55,21 +46,22 @@ void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
     //Initialise voronoi diagram
     VoronoiDiag vd(inTri);
 
-    int vert = 0;
+    outVerts.resize(vd.number_of_vertices(), 2);
     //Iterate over vertices
-    for (auto iter = inTri.vertices_begin();
-            iter != inTri.vertices_end();
-            iter++)
+    for (auto iter = inTri.finite_vertices_begin();
+            iter != inTri.finite_vertices_end();
+            ++iter)
     {
         //Find corresponding cell, convert to polygon, do area().
         //First get cell verts (why is this so messy whyyy)
+
         auto cell = vd.dual(iter);
         std::vector<boostPoint> cellVerts;
         auto ec_start = cell->ccb();
         auto ec = ec_start;
         do
         {
-            if (ec->has_source()) cellVerts.push_back(
+            cellVerts.push_back(
                         boostPoint(ec->source()->point().x(),
                                    ec->source()->point().y()));
         } while(++ec != ec_start);
@@ -81,10 +73,10 @@ void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
         boost::geometry::centroid(poly, centroid);
         //std::cout << "Centroid: " << centroid.x() << ", " << centroid.y() << std::endl;
 
+        int index = iter->info();
         //Assign the centroid to the output
-        outVerts(vert, 0) = centroid.x();
-        outVerts(vert, 1) = centroid.y();
-        vert++;
+        outVerts(index, 0) = centroid.x();
+        outVerts(index, 1) = centroid.y();
     }
 }
 

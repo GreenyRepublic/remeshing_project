@@ -47,13 +47,13 @@ void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
     activeMesh = mesh;
     //std::cout << "Normal stats: " << activeMesh->meshVerts.rows() << " verts. " << activeMesh->meshFaces.rows() << " tris." << std::endl;
     //std::cout << "Param stats: " << activeMesh->parameterisedVerts.rows() << " verts. " << activeMesh->delaunayFaces.rows() << " tris." << std::endl;
-    if (!parameterised)
+    if (!parameterised && activeMesh->meshVerts.rows() != 0)
     {
         viewer.data.set_mesh(activeMesh->meshVerts, activeMesh->meshFaces);
         viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
     } else{
-        viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->delaunayFaces);
-        viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->delaunayFaces);
+        viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+        viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->meshFaces);
     }
 }
 
@@ -64,7 +64,11 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     unsigned int num = (unsigned int)key - '0';
     if (key == ' ')
     {
-        viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
+        if (!parameterised)
+            viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
+        else
+            viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+
         std::cout << "Recenter Camera" << std::endl;
     }
 
@@ -79,8 +83,11 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
 
     else if (key == 'D'){
         std::cout << "Computing Delaunay triangulation";
-        delaunayTriangulation(*activeMesh);
-        setMesh(activeMesh, viewer);
+        auto outMesh = std::make_shared<MeshData>();
+        delaunayTriangulation(*activeMesh, *outMesh);
+        setMesh(outMesh, viewer);
+        std::cout << "Verts: " << activeMesh->parameterisedVerts.rows() << " Faces: " << activeMesh->meshFaces.rows() << std::endl;
+        viewer.data.set_points(activeMesh->parameterisedVerts, Eigen::RowVector3d(0.8,0.3,0.3));
     }
     else if (key == 'M')
     {
@@ -123,10 +130,9 @@ int main(int argc, char *argv[]) {
 
             //Scale mesh
             parameteriseMesh(*mesh);
-            scaleMesh(5.0, mesh->parameterisedVerts);
+            //scaleMesh(5.0, mesh->parameterisedVerts);
 
             mesh->name = fileName;
-            mesh->delaunayFaces = mesh->meshFaces;
             Meshes.push_back(mesh);
         }
     }

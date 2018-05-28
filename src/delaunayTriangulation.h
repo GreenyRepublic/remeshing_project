@@ -34,7 +34,7 @@ typedef Triangulation::Finite_faces_iterator Faces_iterator;
 typedef Triangulation::Vertex_handle Vertex_handle;
 typedef Triangulation::Face_handle Face_handle;
 
-void delaunayTriangulation(MeshData&);
+void delaunayTriangulation(MeshData&, MeshData&);
 
 //Performs Lloyd Relaxation on parameter-space vertices for some iterations
 void lloydRelaxation(Triangulation&, Eigen::MatrixXd&);

@@ -21,5 +21,4 @@ struct MeshData
     Eigen::MatrixXd meshVerts;
     Eigen::MatrixXi meshFaces;
     Eigen::MatrixXd parameterisedVerts;
-    Eigen::MatrixXi delaunayFaces;
 };
