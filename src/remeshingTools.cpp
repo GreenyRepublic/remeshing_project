@@ -5,6 +5,24 @@
 #include "remeshingTools.h"
 
 
+void barycentricCoord(Eigen::Vector2d& point, Eigen::Vector2d& A, Eigen::Vector2d& B, Eigen::Vector2d& C, Eigen::Vector3d& out)
+{
+    Eigen::RowVector2d v0, v1, v2;
+    v0 = B - A;
+    v1 = C - A;
+    v2 = point - A;
+
+    float d00 = v0.dot(v0);
+    float d01 = v0.dot(v1);
+    float d11 = v1.dot(v1);
+    float d20 = v2.dot(v0);
+    float d21 = v2.dot(v1);
+    float denom = d00 * d11 - d01 * d01;
+    out(1) = (d11 * d20 - d01 * d21) / denom;
+    out(2) = (d00 * d21 - d01 * d20) / denom;
+    out(0) = 1.0f - out(1) - out(2);
+}
+
 void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
 {
     //Temporary working copies of things for safety.
@@ -54,17 +72,17 @@ void remesh(MeshData &inMesh, MeshData& outMesh, int iterations)
             }
         }
         //Found tri, now barycenter crunch
-        Eigen::Vector3d barycentricCoord;
-        igl::barycentric_coordinates(vert,
-                                    tempIn.parameterisedVerts.row(triIndices(0)),
-                                    tempIn.parameterisedVerts.row(triIndices(1)),
-                                    tempIn.parameterisedVerts.row(triIndices(2)),
-                                    barycentricCoord);
+        Eigen::Vector3d baryCoord;
+        Eigen::Vector2d a, b, c;
+        a = tempIn.parameterisedVerts.row(triIndices(0));
+        b = tempIn.parameterisedVerts.row(triIndices(1));
+        c = tempIn.parameterisedVerts.row(triIndices(2));
+        barycentricCoord(vert,a, b, c, baryCoord);
 
         //Assign new vert to final outMesh
-        outMesh.meshVerts(i, 0) = barycentricCoord(0) * tempIn.meshVerts(i,0);
-        outMesh.meshVerts(i, 1) = barycentricCoord(1) * tempIn.meshVerts(i,1);
-        outMesh.meshVerts(i, 2) = barycentricCoord(2) * tempIn.meshVerts(i,2);
+        outMesh.meshVerts(i, 0) = baryCoord(0) * tempIn.meshVerts(i,0);
+        outMesh.meshVerts(i, 1) = baryCoord(1) * tempIn.meshVerts(i,1);
+        outMesh.meshVerts(i, 2) = baryCoord(2) * tempIn.meshVerts(i,2);
     }
     outMesh.parameterisedVerts = tempOut.parameterisedVerts;
     std::cout << "Remeshing complete!" << std::endl;

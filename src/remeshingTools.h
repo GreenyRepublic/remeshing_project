@@ -4,6 +4,6 @@
 #pragma once
 #include "dataStructures.h"
 #include "delaunayTriangulation.h"
-#include "igl/barycentric_coordinates.h"
 
+void barycentricCoord(Eigen::Vector2d&, Eigen::Vector2d&, Eigen::Vector2d&, Eigen::Vector2d&, Eigen::Vector3d&);
 void remesh(MeshData&, MeshData&, int = 1);
