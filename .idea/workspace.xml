@@ -12,6 +12,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0dbc3ca1-f7d5-4f99-9c98-ed4215d9d269" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/delaunayTriangulation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/delaunayTriangulation.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -37,29 +39,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="delaunayTriangulation.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="delaunayTriangulation.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="80" column="5" lean-forward="true" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
+            <state relative-caret-position="434">
+              <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dataStructures.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dataStructures.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="22" column="38" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="93" column="8" lean-forward="true" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+            <state relative-caret-position="186">
+              <caret line="170" lean-forward="true" selection-start-line="168" selection-start-column="16" selection-end-line="170" />
               <folding>
                 <element signature="e#0#27#0" expanded="true" />
               </folding>
@@ -81,6 +74,7 @@
       <find>insert</find>
       <find>fini</find>
       <find>set</find>
+      <find>shared_ptr</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -99,8 +93,8 @@
         <option value="$PROJECT_DIR$/src/dataStructures.h" />
         <option value="$PROJECT_DIR$/src/delaunayTriangulation.h" />
         <option value="$PROJECT_DIR$/src/delaunayTriangulation.h" />
-        <option value="$PROJECT_DIR$/src/delaunayTriangulation.cpp" />
         <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/src/delaunayTriangulation.cpp" />
       </list>
     </option>
   </component>
@@ -114,9 +108,10 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="1934" />
-    <option name="height" value="1047" />
+    <option name="x" value="-9" />
+    <option name="y" value="-8" />
+    <option name="width" value="1920" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -201,12 +196,12 @@
       <workItem from="1527350900445" duration="201000" />
       <workItem from="1527351115142" duration="39351000" />
       <workItem from="1527438187663" duration="28798000" />
-      <workItem from="1527500230927" duration="4792000" />
+      <workItem from="1527500230927" duration="11110000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="182886000" />
+    <option name="totallyTimeSpent" value="189204000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -467,17 +462,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/remeshingTools.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="96" selection-start-line="17" selection-start-column="78" selection-end-line="17" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/dataStructures.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="22" column="38" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/remeshingTools.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="96" selection-start-line="17" selection-start-column="78" selection-end-line="17" selection-end-column="96" />
         </state>
       </provider>
     </entry>
@@ -491,20 +486,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="80" column="5" lean-forward="true" selection-start-line="80" selection-start-column="5" selection-end-line="80" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="93" column="8" lean-forward="true" selection-start-line="93" selection-start-column="8" selection-end-line="93" selection-end-column="8" />
+        <state relative-caret-position="186">
+          <caret line="170" lean-forward="true" selection-start-line="168" selection-start-column="16" selection-end-line="170" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/delaunayTriangulation.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="65" column="22" lean-forward="true" selection-start-line="65" selection-start-column="22" selection-end-line="65" selection-end-column="22" />
         </state>
       </provider>
     </entry>

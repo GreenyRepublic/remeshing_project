@@ -53,31 +53,51 @@ void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
             iter != inTri.finite_vertices_end();
             ++iter)
     {
-        //Find corresponding cell, convert to polygon, do area().
-        //First get cell verts (why is this so messy whyyy)
+        int index = iter->info();
 
-        auto cell = vd.dual(iter);
-        std::vector<boostPoint> cellVerts;
-        auto ec_start = cell->ccb();
-        auto ec = ec_start;
-        do
+        //Ignore boundary verts
+        bool boundary = false;
+        auto vertNeighbours = inTri.incident_vertices(iter);
+        auto start = vertNeighbours;
+        do{
+            if (inTri.is_infinite(vertNeighbours))
+            {
+                boundary = true;
+                break;
+            }
+        }while(++vertNeighbours != start);
+        if (!boundary)
         {
-            cellVerts.push_back(
+            //Find corresponding cell, convert to polygon, do area().
+            //First get cell verts (why is this so messy whyyy)
+
+            auto cell = vd.dual(iter);
+            std::vector<boostPoint> cellVerts;
+            auto ec_start = cell->ccb();
+            auto ec = ec_start;
+            do
+            {
+                cellVerts.push_back(
                         boostPoint(ec->source()->point().x(),
                                    ec->source()->point().y()));
-        } while(++ec != ec_start);
+            } while(++ec != ec_start);
 
-        //Construct a boost polygon and get the centroid.
-        boostPolygon poly;
-        boostPoint centroid;
-        boost::geometry::assign_points(poly, cellVerts);
-        boost::geometry::centroid(poly, centroid);
-        //std::cout << "Centroid: " << centroid.x() << ", " << centroid.y() << std::endl;
+            //Construct a boost polygon and get the centroid.
+            boostPolygon poly;
+            boostPoint centroid;
+            boost::geometry::assign_points(poly, cellVerts);
+            boost::geometry::centroid(poly, centroid);
+            //std::cout << "Centroid: " << centroid.x() << ", " << centroid.y() << std::endl;
 
-        int index = iter->info();
-        //Assign the centroid to the output
-        outVerts(index, 0) = centroid.x();
-        outVerts(index, 1) = centroid.y();
+            //Assign the centroid to the output
+            outVerts(index, 0) = centroid.x();
+            outVerts(index, 1) = centroid.y();
+        } else{
+            std::cout << "Boundary!" << std::endl;
+            outVerts(index, 0) = iter->point().x();
+            outVerts(index, 1) = iter->point().y();
+        }
+
     }
 }
 
