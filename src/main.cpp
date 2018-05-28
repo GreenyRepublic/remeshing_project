@@ -122,12 +122,13 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
     else if (key == 'D'){
         std::cout << "Computing Delaunay triangulation";
         MeshData newMesh;
-        delaunayTriangulation(activeMesh, newMesh);
+        Eigen::MatrixXd voronoi;
+        delaunayTriangulation(activeMesh, newMesh, voronoi);
         //setMesh(*Meshes.rbegin(), viewer);
         std::cout << "Drawing " << newMesh.parameterisedVerts.rows() << std::endl;
         viewer.data.clear();
         viewer.data.set_mesh(newMesh.parameterisedVerts, newMesh.meshFaces);
-        viewer.data.set_points(newMesh.parameterisedVerts, Eigen::RowVector3d(0.8,0.3,0.3));
+        viewer.data.set_points(voronoi, Eigen::RowVector3d(0.8,0.3,0.3));
         Meshes.push_back(newMesh);
     }
     else if (key == 'M')

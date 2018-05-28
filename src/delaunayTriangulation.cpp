@@ -4,7 +4,7 @@
 
 #include "delaunayTriangulation.h"
 
-void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
+void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh, Eigen::MatrixXd& voronoiPoints){
 
     /*
      * We first need to get the vertices from the parameterisation
@@ -38,16 +38,22 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
     outMesh.parameterisedVerts = inMesh.parameterisedVerts;
 
     std::cout << std::endl << "Running Lloyd Relaxation..." << std::endl;
-    lloydRelaxation(dt, outMesh.parameterisedVerts);
+    lloydRelaxation(dt, outMesh.parameterisedVerts, voronoiPoints);
 }
 
 
-void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
+void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts, Eigen::MatrixXd& voronoiPoints)
 {
     //Initialise voronoi diagram
     VoronoiDiag vd(inTri);
-
-    outVerts.resize(vd.number_of_vertices(), 2);
+    voronoiPoints.resize(vd.number_of_vertices(), 2);
+    int i = 0;
+    for (auto iter = vd.vertices_begin(); iter != vd.vertices_end(); iter++)
+    {
+        voronoiPoints(i, 0) = iter->point().x();
+        voronoiPoints(i, 1) = iter->point().y();
+        i++;
+    }
     //Iterate over vertices
     for (auto iter = inTri.finite_vertices_begin();
             iter != inTri.finite_vertices_end();
@@ -66,6 +72,7 @@ void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
                 break;
             }
         }while(++vertNeighbours != start);
+
         if (!boundary)
         {
             //Find corresponding cell, convert to polygon, do area().
