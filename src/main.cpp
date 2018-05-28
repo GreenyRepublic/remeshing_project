@@ -183,6 +183,7 @@ int main(int argc, char *argv[]) {
         std::cout << "Mesh " << fileName << " not found! Skipping..." << std::endl;
     } else {
         std::cout << "Loaded mesh " << fileName << std::endl;
+        parameterise(mesh);
         //Scale mesh
         mesh.name = fileName;
         Meshes.push_back(mesh);

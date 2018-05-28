@@ -6,5 +6,5 @@
 #include "delaunayTriangulation.h"
 #include "igl/barycentric_coordinates.h"
 
-void parameterise(MeshData&, MeshData&);
+void parameterise(MeshData&);
 void remesh(MeshData&, MeshData&, int = 1);
