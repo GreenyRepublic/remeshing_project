@@ -39,6 +39,41 @@ void redrawMesh(igl::viewer::Viewer &viewer, MeshData &mesh)
     viewer.data.set_mesh(mesh.meshVerts, mesh.meshFaces);
 }
 
+void barycenter3(Eigen::MatrixXd& inVerts, Eigen::RowVector3d& center)
+{
+    center.setZero();
+    for (int i = 0; i < inVerts.rows(); i++)
+    {
+        center += inVerts.row(i);
+    }
+    center /= inVerts.rows();
+}
+
+void barycenter2(Eigen::MatrixXd& inVerts, Eigen::RowVector2d& center)
+{
+    center.setZero();
+    for (int i = 0; i < inVerts.rows(); i++)
+    {
+        center += inVerts.row(i);
+    }
+    center /= inVerts.rows();
+}
+
+void centerMesh(std::shared_ptr<MeshData> mesh)
+{
+    if (!parameterised && mesh->meshVerts.rows() != 0)
+    {
+        Eigen::RowVector3d bary;
+        barycenter3(mesh->meshVerts, bary);
+        for (int i = 0; i < mesh->meshVerts.rows(); i++) mesh->meshVerts.row(i) -= bary;
+    }
+    else
+    {
+        Eigen::RowVector2d bary;
+        barycenter2(mesh->parameterisedVerts, bary);
+        for (int i = 0; i < mesh->parameterisedVerts.rows(); i++) mesh->parameterisedVerts.row(i) -= bary;
+    }
+}
 
 //Auxilliary for libigl's built in setmesh() that handles the new MeshData struct
 void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
@@ -47,12 +82,15 @@ void setMesh(std::shared_ptr<MeshData> mesh, igl::viewer::Viewer &viewer)
     activeMesh = mesh;
     //std::cout << "Normal stats: " << activeMesh->meshVerts.rows() << " verts. " << activeMesh->meshFaces.rows() << " tris." << std::endl;
     //std::cout << "Param stats: " << activeMesh->parameterisedVerts.rows() << " verts. " << activeMesh->delaunayFaces.rows() << " tris." << std::endl;
+
     if (!parameterised && activeMesh->meshVerts.rows() != 0)
     {
         viewer.data.set_mesh(activeMesh->meshVerts, activeMesh->meshFaces);
+        centerMesh(activeMesh);
         viewer.core.align_camera_center(activeMesh->meshVerts, activeMesh->meshFaces);
-    } else{
+    } else {
         viewer.data.set_mesh(activeMesh->parameterisedVerts, activeMesh->meshFaces);
+        centerMesh(activeMesh);
         viewer.core.align_camera_center(activeMesh->parameterisedVerts, activeMesh->meshFaces);
     }
 }
