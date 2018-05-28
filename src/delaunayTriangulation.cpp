@@ -38,14 +38,14 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
     outMesh.parameterisedVerts = inMesh.parameterisedVerts;
 
     std::cout << std::endl << "Running Lloyd Relaxation..." << std::endl;
-    lloydRelaxation(dt, outMesh.parameterisedVerts, );
+    lloydRelaxation(dt, outMesh.parameterisedVerts);
 }
 
 
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
     //Initialise voronoi diagram
-    VoronoiDiag vd(inTri);
+    VoronoiDiag vd(inTri);x
     //Iterate over vertices
     for (auto iter = inTri.finite_vertices_begin();
             iter != inTri.finite_vertices_end();

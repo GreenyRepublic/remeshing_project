@@ -124,7 +124,7 @@ bool keyDown(igl::viewer::Viewer &viewer, unsigned char key, int modifier)
         MeshData newMesh;
         Eigen::MatrixXd voronoi;
         delaunayTriangulation(activeMesh, newMesh);
-        setMesh(newMesh), viewer);
+        setMesh(newMesh, viewer);
         Meshes.push_back(newMesh);
     }
     else if (key == 'M')
