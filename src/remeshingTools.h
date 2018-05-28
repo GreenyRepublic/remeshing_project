@@ -3,6 +3,7 @@
 //
 #pragma once
 #include "dataStructures.h"
+#include "delaunayTriangulation.h"
+#include "igl/barycentric_coordinates.h"
 
-
-void parameteriseMesh(MeshData& inMesh);
+void remesh(MeshData&, MeshData&, int = 1);

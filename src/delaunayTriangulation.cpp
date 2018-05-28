@@ -26,8 +26,6 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
      * and insert the points in it.
      */
     Triangulation dt (pts.begin(), pts.end());
-
-
     /*
      * We now need to get the faces back to be able to render
      * the new triangulation on the 2D parameterisation.
@@ -45,7 +43,7 @@ void delaunayTriangulation(MeshData& inMesh, MeshData& outMesh){
 void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
 {
     //Initialise voronoi diagram
-    VoronoiDiag vd(inTri);x
+    VoronoiDiag vd(inTri);
     //Iterate over vertices
     for (auto iter = inTri.finite_vertices_begin();
             iter != inTri.finite_vertices_end();
@@ -86,13 +84,11 @@ void lloydRelaxation(Triangulation& inTri, Eigen::MatrixXd& outVerts)
             boostPoint centroid;
             boost::geometry::assign_points(poly, cellVerts);
             boost::geometry::centroid(poly, centroid);
-            //std::cout << "Centroid: " << centroid.x() << ", " << centroid.y() << std::endl;
 
             //Assign the centroid to the output
             outVerts(index, 0) = centroid.x();
             outVerts(index, 1) = centroid.y();
         } else{
-            std::cout << "Boundary!" << std::endl;
             outVerts(index, 0) = iter->point().x();
             outVerts(index, 1) = iter->point().y();
         }
